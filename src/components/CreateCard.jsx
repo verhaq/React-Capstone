@@ -41,14 +41,14 @@ function CreateCard(props) {
           name="content"
           onChange={handleChange}
           value={note.content}
-          placeholder="Watering Schedule"
+          placeholder="Watering Conditions"
           rows="1"
         />
         <textarea
           name="notes"
           onChange={handleChange}
           value={note.notes}
-          placeholder="Notes"
+          placeholder="Light Requirements"
           rows="1"
         />
         <button onClick={submitNote}>Add</button>

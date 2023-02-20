@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Card from "./components/Card";
@@ -7,27 +7,48 @@ import axios from 'axios';
 
 function App() {
 
-
+// API STUFF START
   const [query, setQuery] = useState('')
-  const [container, setContainner] = useState([])
-  
-  const options = {
-    method: 'GET',
-    url: 'https://house-plants2.p.rapidapi.com/search',
-    params: {query: 'Fern'},
-    headers: {
-      'X-RapidAPI-Key': 'API KEY ADD HERE!!!!! FORM ENV',
-      'X-RapidAPI-Host': 'house-plants2.p.rapidapi.com'
-    }
-  };
-  
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
-  
-  
+  const [container, setContainer] = useState([])
+  const [endpoint, setEndPoint] = useState('')
+
+  const onChangeHandler = (e) => {
+    setQuery(e.target.value)
+    console.log (query)
+  }
+
+  const onSubmitHandler = ((e) => {
+    e.preventDefault()
+    console.log(query)
+    // something()
+    const options = {
+      method: 'GET',
+      url: 'https://house-plants2.p.rapidapi.com/search',
+      params: {query: `${query}`},
+      headers: {
+        'X-RapidAPI-Key': 'ADD SECRET KEY',
+        'X-RapidAPI-Host': 'house-plants2.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options)
+    .then(function (response) {
+      console.log(response.data)
+      return response;
+    })
+    .then(response => {
+  console.log(response)
+  if (!Array.isArray(response.data)) {
+    throw new Error (response.data)
+  }
+  setContainer(response.data)
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  })
+
+  // API STUFF END
     const [notes, setNotes] = useState([]);
   
     function addNote(newNote) {
@@ -44,14 +65,37 @@ function App() {
       });
     }
 
+// console.log(container)
 
 return (
   <div>
       <Header />
-      <form>
-        <input type="text" placeholder="Search plants"/>
+      <form onSubmit={onSubmitHandler}>
+        <input type="text" placeholder="Search plants" 
+        value={query} 
+        onChange={(e) => setQuery(e.target.value)}
+        />
         <button type="submit">Submit</button>
       </form>
+      {container.map(({item},index) => {
+        return (
+          <div key={index}>
+
+            <p>
+              <img src = {item.Img} />
+            </p>
+            <p>
+             {item ['Common name']} 
+            </p>
+            <p>
+              {item.Family}
+            </p>
+            <p>
+             {item.Watering} 
+            </p>
+          </div>
+        )
+      })}
       <CreateCard onAdd={addNote} />
       {notes.map((noteItem, index) => {
         return (
