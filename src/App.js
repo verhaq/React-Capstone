@@ -16,7 +16,7 @@ function App() {
     url: 'https://house-plants2.p.rapidapi.com/search',
     params: {query: 'Fern'},
     headers: {
-      'X-RapidAPI-Key': '5f7149f1e6msh907f30e37325da4p17a268jsn88f870106733',
+      'X-RapidAPI-Key': 'API KEY ADD HERE!!!!! FORM ENV',
       'X-RapidAPI-Host': 'house-plants2.p.rapidapi.com'
     }
   };
