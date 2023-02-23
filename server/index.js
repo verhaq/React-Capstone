@@ -27,8 +27,8 @@ app.post('/login', login)
 
 
 // the force: true is for development -- it DROPS tables!!!
-// sequelize.sync({ force: true })
-sequelize.sync()
+sequelize.sync({ force: true })
+// sequelize.sync()
     .then(() => {
         app.listen(4005, () => console.log(`db sync successful & server running on port 4005`))
     })
