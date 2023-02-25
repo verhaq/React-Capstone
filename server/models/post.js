@@ -9,9 +9,9 @@ module.exports = {
       allowNull: false,
       primaryKey: true,
     },
-    entryName: DataTypes.STRING,
-    entryWater: DataTypes.STRING,
-    entryLight: DataTypes.STRING,
-    entryNotes: DataTypes.TEXT,
+    title: DataTypes.STRING,
+    content: DataTypes.STRING,
+    notes: DataTypes.STRING,
+    notes2: DataTypes.TEXT,
   }),
 };

@@ -22,7 +22,7 @@ const Home = () => {
           url: 'https://house-plants2.p.rapidapi.com/search',
           params: {query: `${query}`},
           headers: {
-            'X-RapidAPI-Key': '5f7149f1e6msh907f30e37325da4p17a268jsn88f870106733',
+            'X-RapidAPI-Key': `${process.env.REACT_APP_API_KEY}`,
             'X-RapidAPI-Host': 'house-plants2.p.rapidapi.com'
           }
         };

@@ -29,7 +29,7 @@ const Header = () => {
                         </ul>
                     ) : (
                       <ul class="flex justify-between" >
-                            <li className='pr-3'>
+                            <li class='pr-3'>
                                 <NavLink style={styleActiveLink} to='/'>Home</NavLink>
                             </li>
                             <li>
