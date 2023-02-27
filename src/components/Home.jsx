@@ -46,7 +46,7 @@ const Home = () => {
     return (
     <div> 
 
-    <form onSubmit={onSubmitHandler}>
+    <form onSubmit={onSubmitHandler} class="relative">
         <input type="text" placeholder="Search plants" 
         value={query} 
         onChange={(e) => setQuery(e.target.value)}
@@ -54,24 +54,27 @@ const Home = () => {
         <button  type="submit" class="bg-[#f5ba13] text-sm" >Submit</button>
       </form>
 
-      <div class="flex justify-between flex-wrap"> 
+      <div class=" grid grid-cols-4 gap-2 "> 
       {container.map(({item},index) => {
         return (
           <div key={index}  >
 
           
-            <p class=" text-center p-4 bg-slate-500 pt-3 border-2">
-              <p >
+            <p class="  text-center p-4 bg-[#41855C] pt-3 border-2 shadow-lg shadow-slate-200 rounded-xl">
+              <p>
               <img src = {item.Img}/>
               <br/>
               </p>
-            
+            <h1 class="font-bold  text-lg">
              {item ['Common name']} 
-             <br/>
+
+            </h1>
+             
           
-          
+          <p class="">
+
             {item['Light ideal']}
-            <br/>
+          </p>
   
              {item.Watering} 
             </p>
