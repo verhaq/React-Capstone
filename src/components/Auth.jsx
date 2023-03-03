@@ -1,15 +1,25 @@
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import AuthContext from '../store/authContext'
 
 const Auth = () => {
+    const navigate = useNavigate()
+
     const [register, setRegister] = useState(true)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
 
     const authCtx = useContext(AuthContext)
+
+    const storedId = localStorage.getItem('userId')
+    useEffect(() => {
+        if(storedId){
+            navigate("/");
+        }
+    }, [storedId]);
 
     const submitHandler = e => {
         e.preventDefault()

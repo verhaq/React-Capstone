@@ -10,7 +10,7 @@ const createToken = (username, id) => {
             username,
             id
         },
-        SECRET,
+        process.env.SECRET,
         { 
             expiresIn: '2 days' 
         }
@@ -29,6 +29,7 @@ module.exports = {
                 const salt = bcrypt.genSaltSync(10)
                 const hash = bcrypt.hashSync(password, salt)
                 const newUser = await User.create({username, hashedPass: hash})
+                console.log("newuser", newUser )
                 const token = createToken(
                     newUser.dataValues.username, 
                     newUser.dataValues.id
@@ -50,6 +51,7 @@ module.exports = {
 
     login: async (req, res) => {
         try {
+            console.log("inside login controller");
             const {username, password} = req.body
             let foundUser = await User.findOne({where: {username}})
             console.log("you exist!", foundUser.dataValues);

@@ -7,7 +7,7 @@ function Card(props) {
 
   return (
     <div className="note">
-      <h1>{props.title}</h1>
+      <h1 class="font-bold">{props.title}</h1>
       <p>{props.content}</p>
       <p>{props.notes}</p>
       <p>{props.notes2}</p>

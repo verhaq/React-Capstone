@@ -60,11 +60,11 @@ const Home = () => {
           <div key={index}  >
 
           
-            <p class="  text-center p-4 bg-[#41855C] pt-3 border-2 shadow-lg shadow-slate-200 rounded-xl">
-              <p>
+            <p class=" items-center  text-center p-4 bg-[#41855C] pt-3 border-2 shadow-lg shadow-slate-200 rounded-xl">
+              
               <img src = {item.Img}/>
               <br/>
-              </p>
+              
             <h1 class="font-bold  text-lg">
              {item ['Common name']} 
 

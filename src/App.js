@@ -4,10 +4,11 @@ import AuthContext from "./store/authContext";
 import Auth from "./components/Auth";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Card from "./components/Card";
 import CreateCard from "./components/CreateCard";
 import Home from "./components/Home";
+import Garden from "./components/Garden";
 import axios from 'axios';
 
 function App() {
@@ -15,9 +16,7 @@ function App() {
   const authCtx = useContext(AuthContext);
 
 
-// API STUFF START
 
-  // API STUFF END
   const [notes, setNotes] = useState([]);
   
   // function addNote(newNote) {
@@ -38,9 +37,10 @@ function App() {
 
 const fetchNotes = async () => {
 
+  const storedId = localStorage.getItem('userId')
   try {
 
-    const { data } = await axios.get("http://localhost:4005/getPosts");
+    const { data } = await axios.get(`http://localhost:4005/getPosts/${storedId}`);
     console.log("Data fetch", data);
 
     setNotes(data);
@@ -51,16 +51,13 @@ const fetchNotes = async () => {
 
 const addNote = async (newNote) => {
 
+  const storedId = localStorage.getItem('userId')
   try {
 
-    setNotes(prevNotes => {
-      alert("Entry submitted!")
-      return [...prevNotes, newNote];
-      });
-
-    const { data } = await axios.post("http://localhost:4005/posts", newNote)
+    const { data } = await axios.post(`http://localhost:4005/posts/${storedId}`, newNote)
 
     console.log("added Note", data);
+    alert("Plant added to your garden!")
 
     fetchNotes();
   } catch (error) {
@@ -75,11 +72,23 @@ useEffect(() => {
 }, []);
 
 
+
 return (
   <div >
       <Header />
 
       <CreateCard onAdd={addNote}/>
+
+          <Routes>
+                  <Route path="/" element={<Home fetchNotes={fetchNotes} setNotes={setNotes}/>} />
+                  <Route path="/garden" element={<Garden fetchNotes={fetchNotes} setNotes={setNotes}/>} />
+                  <Route
+                    path="/auth"
+                    element={!authCtx.token ? <Auth /> : <Navigate to="/" />}
+                  />
+           </Routes>
+
+      <div>
       {notes.map((noteItem, index) => {
         return (
           <Card
@@ -93,16 +102,9 @@ return (
           />
         );
       })}
+      </div>
 
-<Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/auth"
-          element={!authCtx.token ? <Auth /> : <Navigate to="/" />}
-        />
- </Routes>
 
-      <Footer />
     </div>
   );
 }
